@@ -1,0 +1,69 @@
+<html>
+<head>
+<style>
+    body {
+        color:black;
+        background-color:yellow;
+    }    
+    
+</style>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  <h1>Welcome to the Career Tech Applications Page!</h1>
+    <label for ="courses">Please choose your course:</label>
+    <select name="courses">
+        <option value="0">Northview Comp Sci</option>
+        <option value="1">Art</option>
+        <option value="2">Engineering</option>
+        <option value="3">Interactive Media</option>
+        <option value="4">MedTech</option>
+        <option value="5">Cosmotology</option>
+        <option value="6">Southview Programming</option>
+        <option value="7">Computer Graphics</option>
+        <option value="8">Nuclear Warfare</option>
+    </select>
+    <button id="showApps">View Course Applications</button>
+    <h1>Applications</h1>
+    <div id="apps"></div>
+    <button id="prev">Prev.</button>
+    <button id="next">Next</button>
+
+    <script>
+        
+    $("#showApps").click(function(){ 
+        axios.post('/received',{
+            "courses":$("select[name='courses']").val(),
+        })
+        .then(function(response) {
+            console.log(response.data);
+          
+		var i = 0;	
+		$("#next").click(function() {
+            i + 1;
+         
+        })
+        $("#prev").click(function() {
+            i - 1;
+        })
+
+	let $table = $("<table></table>")
+		.append( $("<tr></tr>")
+		.append($("<td></td>").text(response.data[i].name)))
+		.append( $("<tr></tr>")
+		.append($("<td></td>").text(response.data[i].applicationTxt)))
+        .append( $("<tr></tr>"));
+	$("div#apps").append($table);
+})
+              
+        .catch(function(error) {
+            console.log(error);
+        });
+              
+    });
+    
+     
+    </script>
+</body>
+</html>
