@@ -55,7 +55,7 @@ app.use(express.json());
 
 app.post('/received',(req,res) => {
     var bd = req.body.courses;
-    res.send(bd);
+    
     
     if(bd == 0) {
         res.send(tbl0); 
